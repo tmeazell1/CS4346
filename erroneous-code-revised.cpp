@@ -113,6 +113,7 @@ int main() {
 
     // Get conclusion statement number (sn) from the conclusion list (conclt)
     // First statement starts search
+    b520:
     int f = 1;
     determine_member_concl_list();
 
@@ -121,7 +122,8 @@ int main() {
             // Push statement number (sn) and clause number=1 on goal stack
             push_on_stack();
 
-            do {
+            do {/* calculate clause location in clause-variable list */
+            b545:
                 int i = (statsk[sp] - 1) * 4 + clausk[sp];
                 varble = clvarlt[i];
 
