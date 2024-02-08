@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//TODO: change # of elements in each array to be appropriate for our data
 // Conclusion list
 string conclt[10];
 
@@ -13,6 +14,7 @@ string varlt[10];
 string clvarlt[40];
 
 string varble;
+//TODO: change these variables to match variable list in lists.txt
 string qu, de, di, po;
 string buff;
 
@@ -27,6 +29,7 @@ int clausk[11];
 
 int sn, f, i, j, s, k, /*stack pointer */ sp;
 
+//TODO: remove these, we don;t have any floating point data
 // Grade and experience
 float gr, ex;
 
@@ -37,9 +40,10 @@ void instantiate();
 
 int main() {
     // Initialization section
+    //TODO: change stack pointer to be appropriate for our data 
     sp = 11;
 
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 11; i++) {//TODO: change # of iterations to appropriate for our data
         // Initialize arrays
         conclt[i] = "";
         varlt[i] = "";
@@ -48,12 +52,12 @@ int main() {
         clausk[i] = 0;
     }
 
-    for (int i = 1; i < 41; i++) {
+    for (int i = 1; i < 41; i++) { //TODO: change # of iterations to appropriate for our data
         // Initialize clause variable list
         clvarlt[i] = "";
     }
 
-    // Enter conclusions
+    //TODO: Enter conclusions from lists.txt
     conclt[1] = "PO";
     conclt[2] = "QU";
     conclt[3] = "PO";
@@ -62,26 +66,26 @@ int main() {
     conclt[6] = "PO";
 
     cout << "*** CONCLUSION LIST ***" << endl;
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 11; i++) { //TODO: change # of iterations to appropriate for our data
         cout << "CONCLUSION " << i << " " << conclt[i] << endl;
     }
     cout << "HIT RETURN TO CONTINUE";
     getline(cin, buff);
 
-    // Enter variables
+    //TODO: Enter variables from lists.txt
     varlt[1] = "DE";
     varlt[2] = "DI";
     varlt[3] = "EX";
     varlt[4] = "GR";
 
     cout << "*** VARIABLE LIST ***" << endl;
-    for (int i = 1; i < 11; i++) {
+    for (int i = 1; i < 11; i++) {//TODO: change # of iterations to appropriate for our data
         cout << "VARIABLE " << i << " " << varlt[i] << endl;
     }
     cout << "HIT RETURN KEY TO CONTINUE";
     getline(cin, buff);
 
-    // Enter clause variables
+    //TODO: Enter clause variables from lists.txt
     clvarlt[1] = "DE";
     clvarlt[5] = "DE";
     clvarlt[9] = "DE";
@@ -95,7 +99,7 @@ int main() {
     clvarlt[21] = "QU";
     clvarlt[22] = "GR";
 
-    for (int i = 1; i < 9; i++) {
+    for (int i = 1; i < 9; i++) { //TODO: change # of iterations to appropriate for our data
         cout << "** CLAUSE " << i << endl;
         for (int j = 1; j < 5; j++) {
             int k = 4 * (i - 1) + j;
@@ -108,7 +112,7 @@ int main() {
     }
 
     // Inference section
-    cout << "** ENTER CONCLUSION ? ";
+    cout << "** ENTER CONCLUSION ? "; //I think here the user is expected to enter "attack" ie the goal is identify the attack
     getline(cin, varble);
 
     // Get conclusion statement number (sn) from the conclusion list (conclt)
@@ -143,7 +147,7 @@ int main() {
             int s = 0;
 
             // If-then statements
-            switch (sn) {
+            switch (sn) { //TODO: modify this to represent our knowledge base
                 case 1: if (de == "NO") s = 1; break;
                 case 2: if (de == "YES") s = 1; break;
                 case 3: if (de == "YES" && di == "YES") s = 1; break;
@@ -163,7 +167,7 @@ int main() {
         } while (s != 1 && sn != 0);
 
         if (sn != 0) {
-            switch (sn) {
+            switch (sn) { //TODO: modify this to represent our knowledge base
                 case 1: po = "NO"; cout << "PO=NO" << endl; break;
                 case 2: qu = "YES"; cout << "QU=YES" << endl; break;
                 case 3: po = "YES"; cout << "PO=RESEARCH" << endl; break;
@@ -173,7 +177,7 @@ int main() {
             }
 
             sp++;
-            if (sp >= 11)
+            if (sp >= 11) //TODO: modify this number to work for our data
                 cout << "*** SUCCESS" << endl;
             else {
                 clausk[sp]++;
@@ -210,14 +214,14 @@ void push_on_stack() {
 void instantiate() {
     int i = 1;
 
-    while (varble != varlt[i] && i < 10)
+    while (varble != varlt[i] && i < 10) //TODO: modify loop iterations to work for our data
         i++;
 
     if (varble == varlt[i] && instlt[i] != 1) {
         instlt[i] = 1; // Mark instantiated
 
         // Input statements for sample position knowledge base
-        switch (i) {
+        switch (i) { //TODO: modify this to get user inputs for each variable in the variable list from lists.txt
             case 1: cout << "INPUT YES OR NO FOR DE-? "; getline(cin, de); break;
             case 2: cout << "INPUT YES OR NO FOR DI-? "; getline(cin, di); break;
             case 3: cout << "INPUT A REAL NUMBER FOR EX-? "; cin >> ex; break;
