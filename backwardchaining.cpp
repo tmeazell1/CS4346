@@ -5,13 +5,13 @@ using namespace std;
 
 //TODO: change # of elements in each array to be appropriate for our data
 // Conclusion list
-string conclt[10];
+string conclusionList[10];
 
 // Variable list
-string varlt[10];
+string varList[10];
 
 // Clause variable list
-string clvarlt[40];
+string clauseVarList[40];
 
 string varble;
 //TODO: change these variables to match variable list in lists.txt
@@ -19,13 +19,13 @@ string qu, de, di, po;
 string buff;
 
 // Instantiated list
-int instlt[11];
+int instantiatedList[11];
 
 // Statement stack
-int statsk[11];
+int statementStack[11];
 
 // Clause stack
-int clausk[11];
+int clauseStack[11];
 
 int sn, f, i, j, s, k, /*stack pointer */ sp;
 
@@ -45,65 +45,65 @@ int main() {
 
     for (int i = 1; i < 11; i++) {//TODO: change # of iterations to appropriate for our data
         // Initialize arrays
-        conclt[i] = "";
-        varlt[i] = "";
-        instlt[i] = 0;
-        statsk[i] = 0;
-        clausk[i] = 0;
+        conclusionList[i] = "";
+        varList[i] = "";
+        instantiatedList[i] = 0;
+        statementStack[i] = 0;
+        clauseStack[i] = 0;
     }
 
     for (int i = 1; i < 41; i++) { //TODO: change # of iterations to appropriate for our data
         // Initialize clause variable list
-        clvarlt[i] = "";
+        clauseVarList[i] = "";
     }
 
     //TODO: Enter conclusions from lists.txt
-    conclt[1] = "PO";
-    conclt[2] = "QU";
-    conclt[3] = "PO";
-    conclt[4] = "PO";
-    conclt[5] = "PO";
-    conclt[6] = "PO";
+    conclusionList[1] = "PO";
+    conclusionList[2] = "QU";
+    conclusionList[3] = "PO";
+    conclusionList[4] = "PO";
+    conclusionList[5] = "PO";
+    conclusionList[6] = "PO";
 
     cout << "*** CONCLUSION LIST ***" << endl;
     for (int i = 1; i < 11; i++) { //TODO: change # of iterations to appropriate for our data
-        cout << "CONCLUSION " << i << " " << conclt[i] << endl;
+        cout << "CONCLUSION " << i << " " << conclusionList[i] << endl;
     }
     cout << "HIT RETURN TO CONTINUE";
     getline(cin, buff);
 
     //TODO: Enter variables from lists.txt
-    varlt[1] = "DE";
-    varlt[2] = "DI";
-    varlt[3] = "EX";
-    varlt[4] = "GR";
+    varList[1] = "DE";
+    varList[2] = "DI";
+    varList[3] = "EX";
+    varList[4] = "GR";
 
     cout << "*** VARIABLE LIST ***" << endl;
     for (int i = 1; i < 11; i++) {//TODO: change # of iterations to appropriate for our data
-        cout << "VARIABLE " << i << " " << varlt[i] << endl;
+        cout << "VARIABLE " << i << " " << varList[i] << endl;
     }
     cout << "HIT RETURN KEY TO CONTINUE";
     getline(cin, buff);
 
     //TODO: Enter clause variables from lists.txt
-    clvarlt[1] = "DE";
-    clvarlt[5] = "DE";
-    clvarlt[9] = "DE";
-    clvarlt[10] = "DI";
-    clvarlt[13] = "QU";
-    clvarlt[14] = "GR";
-    clvarlt[15] = "EX";
-    clvarlt[17] = "QU";
-    clvarlt[18] = "GR";
-    clvarlt[19] = "EX";
-    clvarlt[21] = "QU";
-    clvarlt[22] = "GR";
+    clauseVarList[1] = "DE";
+    clauseVarList[5] = "DE";
+    clauseVarList[9] = "DE";
+    clauseVarList[10] = "DI";
+    clauseVarList[13] = "QU";
+    clauseVarList[14] = "GR";
+    clauseVarList[15] = "EX";
+    clauseVarList[17] = "QU";
+    clauseVarList[18] = "GR";
+    clauseVarList[19] = "EX";
+    clauseVarList[21] = "QU";
+    clauseVarList[22] = "GR";
 
     for (int i = 1; i < 9; i++) { //TODO: change # of iterations to appropriate for our data
         cout << "** CLAUSE " << i << endl;
         for (int j = 1; j < 5; j++) {
             int k = 4 * (i - 1) + j;
-            cout << "VARIABLE " << j << " " << clvarlt[k] << endl;
+            cout << "VARIABLE " << j << " " << clauseVarList[k] << endl;
         }
         if (i == 4) {
             cout << "HIT RETURN KEY TO CONTINUE";
@@ -115,7 +115,7 @@ int main() {
     cout << "** ENTER CONCLUSION ? "; //I think here the user is expected to enter "attack" ie the goal is identify the attack
     getline(cin, varble);
 
-    // Get conclusion statement number (sn) from the conclusion list (conclt)
+    // Get conclusion statement number (sn) from the conclusion list (conclusionList)
     // First statement starts search
     b520:
     int f = 1;
@@ -128,8 +128,8 @@ int main() {
 
             do {/* calculate clause location in clause-variable list */
             b545:
-                int i = (statsk[sp] - 1) * 4 + clausk[sp];
-                varble = clvarlt[i];
+                int i = (statementStack[sp] - 1) * 4 + clauseStack[sp];
+                varble = clauseVarList[i];
 
                 if (varble != "") {
                     f = 1;
@@ -139,11 +139,11 @@ int main() {
                         goto b520;
 
                     instantiate();
-                    clausk[sp]++;
+                    clauseStack[sp]++;
                 }
             } while (varble != "");
 
-            sn = statsk[sp];
+            sn = statementStack[sp];
             int s = 0;
 
             // If-then statements
@@ -157,9 +157,9 @@ int main() {
             }
 
             if (s != 1) {
-                int i = statsk[sp];
-                varble = conclt[i];
-                f = statsk[sp] + 1;
+                int i = statementStack[sp];
+                varble = conclusionList[i];
+                f = statementStack[sp] + 1;
                 determine_member_concl_list();
                 sp++;
             }
@@ -180,7 +180,7 @@ int main() {
             if (sp >= 11) //TODO: modify this number to work for our data
                 cout << "*** SUCCESS" << endl;
             else {
-                clausk[sp]++;
+                clauseStack[sp]++;
                 goto b545;
             }
         }
@@ -189,36 +189,36 @@ int main() {
     return 0;
 }
 
-// Routine to determine if a variable (varble) is a member of the conclusion list (conclt)
+// Routine to determine if a variable (varble) is a member of the conclusion list (conclusionList)
 // If yes, return sn != 0. If not a member, sn = 0.
 void determine_member_concl_list() {
     sn = 0;
     int i = f;
 
-    while (varble != conclt[i] && i < 8)
+    while (varble != conclusionList[i] && i < 8)
         i++;
 
-    if (varble == conclt[i]) sn = i; // A member
+    if (varble == conclusionList[i]) sn = i; // A member
 }
 
 // Routine to push statement number (sn) and a clause number of 1 onto the conclusion stack
 // Decrements stack pointer (sp)
 void push_on_stack() {
     sp--;
-    statsk[sp] = sn;
-    clausk[sp] = 1;
+    statementStack[sp] = sn;
+    clauseStack[sp] = 1;
 }
 
 // Routine to instantiate a variable (varble) if it isn't already instantiated
-// Instantiate indication (instlt) is 0 if not, 1 if it is. Variable list (varlt) contains the variable (varble).
+// Instantiate indication (instantiatedList) is 0 if not, 1 if it is. Variable list (varList) contains the variable (varble).
 void instantiate() {
     int i = 1;
 
-    while (varble != varlt[i] && i < 10) //TODO: modify loop iterations to work for our data
+    while (varble != varList[i] && i < 10) //TODO: modify loop iterations to work for our data
         i++;
 
-    if (varble == varlt[i] && instlt[i] != 1) {
-        instlt[i] = 1; // Mark instantiated
+    if (varble == varList[i] && instantiatedList[i] != 1) {
+        instantiatedList[i] = 1; // Mark instantiated
 
         // Input statements for sample position knowledge base
         switch (i) { //TODO: modify this to get user inputs for each variable in the variable list from lists.txt
