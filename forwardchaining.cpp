@@ -34,11 +34,16 @@ int main() {
 
     // Enter variables in the IF part
     //TODO change this to match variable list from FC lists.txt
-    varList[1] = "DO";
-    varList[2] = "FT";
-    varList[3] = "FM";
-    varList[4] = "IN";
-    varList[5] = "ST";
+    varList[1] = "PROBLEM";
+    varList[2] = "TRAFFIC";
+    varList[3] = "PATTERN";
+    varList[4] = "EMAILS";
+    varList[5] = "DATABASE";
+    varList[6] = "SCRIPTS";
+    varList[7] = "INTERCEPT";
+    varList[8] = "RANSOM";
+    varList[9] = "DNSREQUESTS";
+    varList[10] = "VULNERABILITIES";
 
     cout << "*** VARIABLE LIST ***" << endl; //we only have one variable. It seems like we need to get the variable from the BC function?
     for (i = 1; i < 11; i++)
@@ -49,12 +54,25 @@ int main() {
 
     // Enter variables as they appear in the IF clauses
     //TODO make this match the clause variable list from FC lists.txt
-    clauseVarList[1] = "IN";
-    clauseVarList[5] = "IN";
-    clauseVarList[9] = "DO";
-    clauseVarList[13] = "DO";
-    clauseVarList[17] = "FT";
-    clauseVarList[18] = "FM";
+    clauseVarList[1] = "PROBLEM";
+    clauseVarList[5] = "PROBLEM";
+    clauseVarList[6] = "ATTACK";
+    clauseVarList[9] = "PROBLEM";
+    clauseVarList[10] = "ATTACK";
+    clauseVarList[13] = "PROBELM";
+    clauseVarList[14] = "ATTACK";
+    clauseVarList[17] = "PROBLEM";
+    clauseVarList[18] = "ATTACK";
+    clauseVarList[21] = "PROBLEM";
+    clauseVarList[22] = "ATTACK";
+    clauseVarList[25] = "PROBLEM";
+    clauseVarList[26] = "ATTACK";
+    clauseVarList[29] = "PROBLEM";
+    clauseVarList[30] = "ATTACK";
+    clauseVarList[33] = "PROBLEM";
+    clauseVarList[34] = "ATTACK";
+    clauseVarList[37] = "PROBLEM";
+    clauseVarList[38] = "ATTACK";
 
     cout << "*** CLAUSE-VARIABLE LIST ***" << endl;
     for (i = 1; i < 9; i++) {
