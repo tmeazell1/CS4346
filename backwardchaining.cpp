@@ -13,7 +13,7 @@ string conclusionList[CONCLUSION_LIST_SIZE];
 string varList[VAR_LIST_SIZE];
 string clauseVarList[CLAUSE_VAR_LIST_SIZE];
 
-string varble;
+string variable;
 //changed these variables to match variable list in lists.txt
 string PROBLEM, TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES;
 string buff;
