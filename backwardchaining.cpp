@@ -135,7 +135,7 @@ int main() {
 
     // Inference section
     cout << "** ENTER CONCLUSION ? "; //I think here the user is expected to enter "attack" ie the goal is identify the attack
-    getline(cin, varble);
+    getline(cin, variable);
 
     // Get conclusion statement number (sn) from the conclusion list (conclusionList)
     // First statement starts search
@@ -151,9 +151,9 @@ int main() {
             do {/* calculate clause location in clause-variable list */
             b545:
                 int i = (statementStack[sp] - 1) * 4 + clauseStack[sp];
-                varble = clauseVarList[i];
+                variable = clauseVarList[i];
 
-                if (varble != "") {
+                if (variable != "") {
                     f = 1;
                     determine_member_concl_list();
 
@@ -163,7 +163,7 @@ int main() {
                     instantiate();
                     clauseStack[sp]++;
                 }
-            } while (varble != "");
+            } while (variable != "");
 
             sn = statementStack[sp];
             int s = 0;
@@ -184,7 +184,7 @@ int main() {
 
             if (s != 1) {
                 int i = statementStack[sp];
-                varble = conclusionList[i];
+                variable = conclusionList[i];
                 f = statementStack[sp] + 1;
                 determine_member_concl_list();
                 sp++;
@@ -219,16 +219,16 @@ int main() {
     return 0;
 }
 
-// Routine to determine if a variable (varble) is a member of the conclusion list (conclusionList)
+// Routine to determine if a variable (variable) is a member of the conclusion list (conclusionList)
 // If yes, return sn != 0. If not a member, sn = 0.
 void determine_member_concl_list() {
     sn = 0;
     int i = f;
 
-    while (varble != conclusionList[i] && i < 8)
+    while (variable != conclusionList[i] && i < 8)
         i++;
 
-    if (varble == conclusionList[i]) sn = i; // A member
+    if (variable == conclusionList[i]) sn = i; // A member
 }
 
 // Routine to push statement number (sn) and a clause number of 1 onto the conclusion stack
@@ -239,15 +239,15 @@ void push_on_stack() {
     clauseStack[sp] = 1;
 }
 
-// Routine to instantiate a variable (varble) if it isn't already instantiated
-// Instantiate indication (instantiatedList) is 0 if not, 1 if it is. Variable list (varList) contains the variable (varble).
+// Routine to instantiate a variable (variable) if it isn't already instantiated
+// Instantiate indication (instantiatedList) is 0 if not, 1 if it is. Variable list (varList) contains the variable (variable).
 void instantiate() {
     int i = 1;
 
-    while (varble != varList[i] && i < 10) //TODO: modify loop iterations to work for our data
+    while (variable != varList[i] && i < 10) //TODO: modify loop iterations to work for our data
         i++;
 
-    if (varble == varList[i] && instantiatedList[i] != 1) {
+    if (variable == varList[i] && instantiatedList[i] != 1) {
         instantiatedList[i] = 1; // Mark instantiated
 
         // Input statements for sample position knowledge base
