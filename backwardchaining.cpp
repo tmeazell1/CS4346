@@ -14,8 +14,8 @@ string varList[10];
 string clauseVarList[40];
 
 string varble;
-//TODO: change these variables to match variable list in lists.txt
-string qu, de, di, po;
+//changed these variables to match variable list in lists.txt
+string PROBLEM, TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES;
 string buff;
 
 // Instantiated list
@@ -28,10 +28,6 @@ int statementStack[11];
 int clauseStack[11];
 
 int sn, f, i, j, s, k, /*stack pointer */ sp;
-
-//TODO: remove these, we don;t have any floating point data
-// Grade and experience
-float gr, ex;
 
 // Function prototypes
 void determine_member_concl_list();
@@ -57,13 +53,18 @@ int main() {
         clauseVarList[i] = "";
     }
 
-    //TODO: Enter conclusions from lists.txt
-    conclusionList[1] = "PO";
-    conclusionList[2] = "QU";
-    conclusionList[3] = "PO";
-    conclusionList[4] = "PO";
-    conclusionList[5] = "PO";
-    conclusionList[6] = "PO";
+    //entered the new conclusions from lists.txt
+    conclusionList[1] = "POTENTIAL";
+    conclusionList[2] = "ATTACK";
+    conclusionList[3] = "ATTACK";
+    conclusionList[4] = "ATTACK";
+    conclusionList[5] = "ATTACK";
+    conclusionList[6] = "ATTACK";
+    conclusionList[7] = "ATTACK";
+    conclusionList[8] = "ATTACK";
+    conclusionList[9] = "ATTACK";
+    conclusionList[10] = "ATTACK";
+
 
     cout << "*** CONCLUSION LIST ***" << endl;
     for (int i = 1; i < 11; i++) { //TODO: change # of iterations to appropriate for our data
@@ -72,11 +73,17 @@ int main() {
     cout << "HIT RETURN TO CONTINUE";
     getline(cin, buff);
 
-    //TODO: Enter variables from lists.txt
-    varList[1] = "DE";
-    varList[2] = "DI";
-    varList[3] = "EX";
-    varList[4] = "GR";
+    //EnterED variables from lists.txt
+    varList[1] = "PROBLEM";
+    varList[2] = "TRAFFIC";
+    varList[3] = "PATTERN";
+    varList[4] = "EMAILS";
+    varList[5] = "DATABASE";
+    varList[6] = "SCRIPTS";
+    varList[7] = "INTERCEPT";
+    varList[8] = "RANSOM";
+    varList[9] = "DNSREQUESTS";
+    varList[10] = "VULNERABILITIES";
 
     cout << "*** VARIABLE LIST ***" << endl;
     for (int i = 1; i < 11; i++) {//TODO: change # of iterations to appropriate for our data
@@ -85,30 +92,43 @@ int main() {
     cout << "HIT RETURN KEY TO CONTINUE";
     getline(cin, buff);
 
-    //TODO: Enter clause variables from lists.txt
-    clauseVarList[1] = "DE";
-    clauseVarList[5] = "DE";
-    clauseVarList[9] = "DE";
-    clauseVarList[10] = "DI";
-    clauseVarList[13] = "QU";
-    clauseVarList[14] = "GR";
-    clauseVarList[15] = "EX";
-    clauseVarList[17] = "QU";
-    clauseVarList[18] = "GR";
-    clauseVarList[19] = "EX";
-    clauseVarList[21] = "QU";
-    clauseVarList[22] = "GR";
+    //Enter clause variables from lists.txt
+    clauseVarList[1] = "PROBLEM";
+    clauseVarList[5] = "PROBLEM";
+    clauseVarList[6] = "ATTACK";
+    clauseVarList[9] = "PROBLEM";
+    clauseVarList[10] = "ATTACK";
+    clauseVarList[13] = "PROBELM";
+    clauseVarList[14] = "ATTACK";
+    clauseVarList[17] = "PROBLEM";
+    clauseVarList[18] = "ATTACK";
+    clauseVarList[21] = "PROBLEM";
+    clauseVarList[22] = "ATTACK";
+    clauseVarList[25] = "PROBLEM";
+    clauseVarList[26] = "ATTACK";
+    clauseVarList[29] = "PROBLEM";
+    clauseVarList[30] = "ATTACK";
+    clauseVarList[33] = "PROBLEM";
+    clauseVarList[34] = "ATTACK";
+    clauseVarList[37] = "PROBLEM";
+    clauseVarList[38] = "ATTACK";
 
-    for (int i = 1; i < 9; i++) { //TODO: change # of iterations to appropriate for our data
+    /*for (int i = 1; i < 9; i++) { //idk what was going on in this part tbh, i changed it to the part below
         cout << "** CLAUSE " << i << endl;
         for (int j = 1; j < 5; j++) {
-            int k = 4 * (i - 1) + j;
+            //int k = 4 * (i - 1) + j;
             cout << "VARIABLE " << j << " " << clauseVarList[k] << endl;
         }
         if (i == 4) {
             cout << "HIT RETURN KEY TO CONTINUE";
             getline(cin, buff);
         }
+    }*/
+
+    for (int i = 10; i < 101; i+=10) { //calculates the clause variables associated with each rule
+        cout << "** RULE NUMBER " << i << endl;
+        int k = 4*(i/10-1) +1;
+        cout << "VARIABLE " << i << " " << clauseVarList[k] << endl;
     }
 
     // Inference section
@@ -147,13 +167,17 @@ int main() {
             int s = 0;
 
             // If-then statements
-            switch (sn) { //TODO: modify this to represent our knowledge base
-                case 1: if (de == "NO") s = 1; break;
-                case 2: if (de == "YES") s = 1; break;
-                case 3: if (de == "YES" && di == "YES") s = 1; break;
-                case 4: if (qu == "YES" && gr < 3.5 && ex >= 2) s = 1; break;
-                case 5: if (qu == "YES" && gr < 3 && ex < 2) s = 1; break;
-                case 6: if (qu == "YES" && gr >= 3.5) s = 1; break;
+            switch (sn) { //modified this to represent our knowledge base
+                case 1: if (PROBLEM == "NO") s = 1; break;
+                case 2: if (PROBLEM == "YES" && TRAFFIC == "YES") s = 1; break;
+                case 3: if (PROBLEM == "YES" && PATTERN == "YES") s = 1; break;
+                case 4: if (PROBLEM == "YES" && EMAILS == "YES") s = 1; break;
+                case 5: if (PROBLEM == "YES" && DATABASE == "YES") s = 1; break;
+                case 6: if (PROBLEM == "YES" && SCRIPTS == "YES") s = 1; break;
+                case 7: if (PROBLEM == "YES" && INTERCEPT == "YES") s = 1; break;
+                case 8: if (PROBLEM == "YES" && RANSOM == "YES") s = 1; break;
+                case 9: if (PROBLEM == "YES" && DNSREQUESTS == "YES") s = 1; break;
+                case 10: if (PROBLEM == "YES" && VULNERABILITIES == "YES") s = 1; break;
             }
 
             if (s != 1) {
@@ -167,13 +191,17 @@ int main() {
         } while (s != 1 && sn != 0);
 
         if (sn != 0) {
-            switch (sn) { //TODO: modify this to represent our knowledge base
-                case 1: po = "NO"; cout << "PO=NO" << endl; break;
-                case 2: qu = "YES"; cout << "QU=YES" << endl; break;
-                case 3: po = "YES"; cout << "PO=RESEARCH" << endl; break;
-                case 4: po = "YES"; cout << "PO=SERVICE ENGINEER" << endl; break;
-                case 5: po = "NO"; cout << "PO=NO" << endl; break;
-                case 6: po = "YES"; cout << "PO=PRODUCT ENGINEER" << endl; break;
+            switch (sn) {//modified this to represent our knowledge base
+                case 1: PROBLEM = "NO"; cout << "there is no problem in the system" << endl; break;
+                case 2: PROBLEM = "YES"; cout << "there is a problem in the system" << endl; break;
+                case 3: TRAFFIC = "YES"; cout << "This is a DoS attack" << endl; break;
+                case 4: PATTERN = "YES"; cout << "This is a Man in the Middle attack" << endl; break;
+                case 5: DATABASE = "YES"; cout << "This is a SQL injection attack" << endl; break;
+                case 6: SCRIPTS = "YES"; cout << "This is a Cross site scripting attack" << endl; break;
+                case 7: INTERCEPT = "YES"; cout << "this is a packet sniffing attack" << endl; break;
+                case 8: RANSOM = "YES"; cout << "this is a ransomeware attack" << endl; break;
+                case 9: DNSREQUESTS = "YES"; cout << "this is a DNS spoofing attack" << endl; break;
+                case 10: VULNERABILITIES = "YES"; cout << "this is a zero day exploit" << endl; break;
             }
 
             sp++;
@@ -221,11 +249,18 @@ void instantiate() {
         instantiatedList[i] = 1; // Mark instantiated
 
         // Input statements for sample position knowledge base
-        switch (i) { //TODO: modify this to get user inputs for each variable in the variable list from lists.txt
-            case 1: cout << "INPUT YES OR NO FOR DE-? "; getline(cin, de); break;
-            case 2: cout << "INPUT YES OR NO FOR DI-? "; getline(cin, di); break;
-            case 3: cout << "INPUT A REAL NUMBER FOR EX-? "; cin >> ex; break;
-            case 4: cout << "INPUT A REAL NUMBER FOR GR-? "; cin >> gr; break;
+        switch (i) { //modified this to get user inputs for each variable in the variable list from lists.txt
+            case 1: cout << "Is there a problem in the network? YES or NO"; getline(cin, PROBLEM); break;
+            case 2: cout << "Is there an increase in network traffic? YES or NO"; getline(cin, TRAFFIC); break;
+            case 3: cout << "Are there unusual patterns or network actovity? YES or NO"; getline(cin, PATTERN); break;
+            case 4: cout << "Are users receiving fraudulent emails or suspicious links? YES or NO"; getline(cin, EMAILS); break;
+            case 5: cout << "Has there been fraudulent database activity? YES or NO"; getline(cin, DATABASE); break;
+            case 6: cout << "Have malicious scripts been executing on webpages? YES or NO"; getline(cin, SCRIPTS); break;
+            case 7: cout << "Has network traffic been intercepted? YES or NO"; getline(cin, INTERCEPT); break;
+            case 8: cout << "Have ransom demands been found in files? YES or NO"; getline(cin, RANSOM); break;
+            case 9: cout << "Are there any manipulated DNS requests?"; getline(cin, DNSREQUESTS); break;
+            case 10: cout << "Is it possible there are unknown vulnerabilities?"; getline(cin, VULNERABILITIES); break;
+
         }
     }
 }
