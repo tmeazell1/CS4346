@@ -7,8 +7,8 @@ int flag;
 string conditionVar[10]; //condition variable
 string varList[10], clauseVarList[40]; // Variable list and clause variable list //TODO change these to appropriate lengths
 string c, vp, v; // Condition variables
-string fedint, interest, stock, dollar, fedmon; //TODO use the variable from FC lists.txt
-string po, qu; // Conclusion variables TODO change these to conclusions from FC lists
+string PROBLEM, TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES; //TODO use the variable from FC lists.txt
+string FIREWALL, HTTPS, TRAINING, SANITIZE, VPN, ANTIVIRUS, PATCH; // Conclusion variables TODO change these to conclusions from FC lists
 int instlt[10]; // Instantiated list (for instantiated variables)
 //TODO: remove unnecesarily global variables such as loop counters
 int f, i, j, k, s, fp, bp, gr, sn, cn; // Pointers and counters 
