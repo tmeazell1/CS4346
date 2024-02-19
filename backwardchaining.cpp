@@ -3,20 +3,22 @@
 
 using namespace std;
 
+
 //TODO: change # of elements in each array to be appropriate for our data
-// Conclusion list
-string conclusionList[10];
+const int CONCLUSION_LIST_SIZE = 10;
+const int VAR_LIST_SIZE = 10;
+const int CLAUSE_VAR_LIST_SIZE = 40;
 
-// Variable list
-string varList[10];
-
-// Clause variable list
-string clauseVarList[40];
+string conclusionList[CONCLUSION_LIST_SIZE];
+string varList[VAR_LIST_SIZE];
+string clauseVarList[CLAUSE_VAR_LIST_SIZE];
 
 string varble;
 //TODO: change these variables to match variable list in lists.txt
 string qu, de, di, po;
 string buff;
+//new strings
+string problem, traffic, pattern, emails, database, scripts, intercept, ransom, dnsrequests, vulnerablilties;
 
 // Instantiated list
 int instantiatedList[11];
@@ -154,6 +156,7 @@ int main() {
                 case 4: if (qu == "YES" && gr < 3.5 && ex >= 2) s = 1; break;
                 case 5: if (qu == "YES" && gr < 3 && ex < 2) s = 1; break;
                 case 6: if (qu == "YES" && gr >= 3.5) s = 1; break;
+
             }
 
             if (s != 1) {
