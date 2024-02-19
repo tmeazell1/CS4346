@@ -3,20 +3,22 @@
 
 using namespace std;
 
+
 //TODO: change # of elements in each array to be appropriate for our data
-// Conclusion list
-string conclusionList[10];
+const int CONCLUSION_LIST_SIZE = 10;
+const int VAR_LIST_SIZE = 10;
+const int CLAUSE_VAR_LIST_SIZE = 40;
 
-// Variable list
-string varList[10];
-
-// Clause variable list
-string clauseVarList[40];
+string conclusionList[CONCLUSION_LIST_SIZE];
+string varList[VAR_LIST_SIZE];
+string clauseVarList[CLAUSE_VAR_LIST_SIZE];
 
 string varble;
 //changed these variables to match variable list in lists.txt
 string PROBLEM, TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES;
 string buff;
+//new strings
+string problem, traffic, pattern, emails, database, scripts, intercept, ransom, dnsrequests, vulnerablilties;
 
 // Instantiated list
 int instantiatedList[11];
