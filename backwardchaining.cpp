@@ -17,8 +17,6 @@ string variable;
 //changed these variables to match variable list in lists.txt
 string PROBLEM, TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES;
 string buff;
-//new strings
-string problem, traffic, pattern, emails, database, scripts, intercept, ransom, dnsrequests, vulnerablilties;
 
 // Instantiated list
 int instantiatedList[11];
