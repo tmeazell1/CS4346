@@ -4,8 +4,8 @@
 using namespace std;
 
 int flag;
-string cndvar[10]; //condition variable
-string varlt[10], clvarlt[40]; // Variable list and clause variable list //TODO change these to appropriate lengths
+string conditionVar[10]; //condition variable
+string varList[10], clauseVarList[40]; // Variable list and clause variable list //TODO change these to appropriate lengths
 string c, vp, v; // Condition variables
 string fedint, interest, stock, dollar, fedmon; //TODO use the variable from FC lists.txt
 string po, qu; // Conclusion variables TODO change these to conclusions from FC lists
@@ -24,44 +24,44 @@ int main() {
     bp = 1; //back pointer
 
     for (i = 1; i < 41; i++)
-        clvarlt[i] = "";
+        clauseVarList[i] = "";
 
     for (i = 1; i < 11; i++) {
-        cndvar[i] = "";
+        conditionVar[i] = "";
         instlt[i] = 0;
-        varlt[i] = "";
+        varList[i] = "";
     }
 
     // Enter variables in the IF part
     //TODO change this to match variable list from FC lists.txt
-    varlt[1] = "DO";
-    varlt[2] = "FT";
-    varlt[3] = "FM";
-    varlt[4] = "IN";
-    varlt[5] = "ST";
+    varList[1] = "DO";
+    varList[2] = "FT";
+    varList[3] = "FM";
+    varList[4] = "IN";
+    varList[5] = "ST";
 
     cout << "*** VARIABLE LIST ***" << endl; //we only have one variable. It seems like we need to get the variable from the BC function?
     for (i = 1; i < 11; i++)
-        cout << "ENTER VARIABLE " << i << " " << varlt[i] << endl;
+        cout << "ENTER VARIABLE " << i << " " << varList[i] << endl;
 
     cout << "HIT RETURN TO CONTINUE";
     getchar();
 
     // Enter variables as they appear in the IF clauses
     //TODO make this match the clause variable list from FC lists.txt
-    clvarlt[1] = "IN";
-    clvarlt[5] = "IN";
-    clvarlt[9] = "DO";
-    clvarlt[13] = "DO";
-    clvarlt[17] = "FT";
-    clvarlt[18] = "FM";
+    clauseVarList[1] = "IN";
+    clauseVarList[5] = "IN";
+    clauseVarList[9] = "DO";
+    clauseVarList[13] = "DO";
+    clauseVarList[17] = "FT";
+    clauseVarList[18] = "FM";
 
     cout << "*** CLAUSE-VARIABLE LIST ***" << endl;
     for (i = 1; i < 9; i++) {
         cout << "** CLAUSE " << i << endl;
         for (j = 1; j < 5; j++) {
             k = 4 * (i - 1) + j;
-            cout << "VARIABLE " << j << " " << clvarlt[k] << endl;
+            cout << "VARIABLE " << j << " " << clauseVarList[k] << endl;
         }
         if (i == 4) {
             cout << "HIT RETURN TO CONTINUE";
@@ -73,8 +73,8 @@ int main() {
     cout << "ENTER CONDITION VARIABLE? "; //basically asking the user what they want to find. In this case, we are looking for PREVENTION
     getline(cin, c);
 
-    // Place condition variable c on the condition variable queue cndvar
-    cndvar[bp] = c;
+    // Place condition variable c on the condition variable queue conditionVar
+    conditionVar[bp] = c;
     bp++;
 
     // Set the condition variable pointer
@@ -82,8 +82,8 @@ int main() {
     cn = 1; //clause number
 
     // Find the next statement number containing the condition variable (ie )
-    // which is in front of the queue (cndvar), this statement number
-    // is located in the clause variable list (clvarlt)
+    // which is in front of the queue (conditionVar), this statement number
+    // is located in the clause variable list (clauseVarList)
     f = 1; //f is an iterator
 
     while (sn != 0) {
@@ -93,7 +93,7 @@ int main() {
         if (sn != 0) {
             i = 4 * (sn - 1) + cn;
 
-            while (!clvarlt[i].empty()) { // are there any more clauses for this statement?
+            while (!clauseVarList[i].empty()) { // are there any more clauses for this statement?
                 check_instantiation();
                 cn++;
                 i = 4 * (sn - 1) + cn;
@@ -128,10 +128,10 @@ int main() {
             continue; //goto b496
         }
 
-        /* no more clauses in the clause variable list (clvarlt)
-        containing the variable in front of the queue (cndvar(fp))
-        then remove front variable (cndvar(fp)) and replace it by
-        the next variable (cndvar(fp+1)). If no more variables are
+        /* no more clauses in the clause variable list (clauseVarList)
+        containing the variable in front of the queue (conditionVar(fp))
+        then remove front variable (conditionVar(fp)) and replace it by
+        the next variable (conditionVar(fp+1)). If no more variables are
         at the front of the queue, stop. */
         fp++; // next queue variable
         if (fp < bp) {
@@ -148,11 +148,11 @@ int main() {
 
 // Function to instantiate a variable (v) if it isn't already instantiated
 //The instantiate indication (instlt) is a 0 if not, a 1 if it is.
-//The vriable list (varlt) contains the variable (v)
+//The vriable list (varList) contains the variable (v)
 void check_instantiation() {
     i = 1;
 
-    while (v != varlt[i] && i <= 10)
+    while (v != varList[i] && i <= 10)
         i++;
 
     if (instlt[i] != 1) {
@@ -168,7 +168,7 @@ void check_instantiation() {
     }
 }
 
-// Function to search the clause variable list for a variable (clvarlt)
+// Function to search the clause variable list for a variable (clauseVarList)
 void search() {
     flag = 0;
     sn = f; //set sn to f
@@ -177,12 +177,12 @@ void search() {
         cn = 1;
         k = (sn - 1) * 4 + cn;
 
-        while (clvarlt[k] != cndvar[fp] && cn < 4) {
+        while (clauseVarList[k] != conditionVar[fp] && cn < 4) {
             cn++;
             k = (sn - 1) * 4 + cn;
         }
 
-        if (clvarlt[k] == cndvar[fp]) //if we find the condition variable
+        if (clauseVarList[k] == conditionVar[fp]) //if we find the condition variable
             flag = 1;
 
         if (flag == 0)
@@ -194,21 +194,21 @@ void search() {
 
 }
 
-// Function to instantiate a variable (v) and place it on the back of the queue (cndvar[bp])
+// Function to instantiate a variable (v) and place it on the back of the queue (conditionVar[bp])
 void instantiate() {
     i = 1;
 
-    while (v != varlt[i] && i <= 10) //TODO change the number of iterations
+    while (v != varList[i] && i <= 10) //TODO change the number of iterations
         i++;
 
     instlt[i] = 1;
     i = 1;
 
-    while (v != cndvar[i] && i <= 10)
+    while (v != conditionVar[i] && i <= 10)
         i++;
 
-    if (v != cndvar[i]) {
-        cndvar[bp] = v;
+    if (v != conditionVar[i]) {
+        conditionVar[bp] = v;
         bp++;
     }
 }
