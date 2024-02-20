@@ -15,7 +15,8 @@ string clauseVarList[CLAUSE_VAR_LIST_SIZE];
 
 string variable;
 //changed these variables to match variable list in lists.txt
-string PROBLEM, TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES;
+string TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES; //im not sure if these are even necessary 
+string PROBLEM, ATTACK;
 string buff;
 
 // Instantiated list
@@ -27,7 +28,8 @@ int statementStack[11];
 // Clause stack
 int clauseStack[11];
 
-int sn, f, i, j, s, k, /*stack pointer */ sp;
+int sn, sp, s, i;
+int f =1;
 
 // Function prototypes
 void determine_member_concl_list();
@@ -54,7 +56,7 @@ int main() {
     }
 
     //entered the new conclusions from lists.txt
-    conclusionList[1] = "POTENTIAL";
+    conclusionList[1] = "PROBLEM";
     conclusionList[2] = "ATTACK";
     conclusionList[3] = "ATTACK";
     conclusionList[4] = "ATTACK";
@@ -73,17 +75,17 @@ int main() {
     cout << "HIT RETURN TO CONTINUE";
     getline(cin, buff);
 
-    //EnterED variables from lists.txt
+    //had to change varlist a bit, trying to understand the algorithm
     varList[1] = "PROBLEM";
-    varList[2] = "TRAFFIC";
-    varList[3] = "PATTERN";
-    varList[4] = "EMAILS";
-    varList[5] = "DATABASE";
-    varList[6] = "SCRIPTS";
-    varList[7] = "INTERCEPT";
-    varList[8] = "RANSOM";
-    varList[9] = "DNSREQUESTS";
-    varList[10] = "VULNERABILITIES";
+    varList[2] = "ATTACK";
+    varList[3] = "ATTACK";
+    varList[4] = "ATTACK";
+    varList[5] = "ATTACK";
+    varList[6] = "ATTACK";
+    varList[7] = "ATTACK";
+    varList[8] = "ATTACK";
+    varList[9] = "ATTACK";
+    varList[10] = "ATTACK";
 
     cout << "*** VARIABLE LIST ***" << endl;
     for (int i = 1; i < 11; i++) {//TODO: change # of iterations to appropriate for our data
@@ -138,37 +140,45 @@ int main() {
     // Get conclusion statement number (sn) from the conclusion list (conclusionList)
     // First statement starts search
     b520:
-    int f = 1;
-    determine_member_concl_list();
+    f = 1;
+    determine_member_concl_list(); // If variable is a member, sn != 0. If not a member, sn = 0.
 
     if (sn != 0) {
         do {
             // Push statement number (sn) and clause number=1 on goal stack
-            push_on_stack();
+            push_on_stack(); //decrements sp
 
             do {/* calculate clause location in clause-variable list */
             b545:
-                int i = (statementStack[sp] - 1) * 4 + clauseStack[sp];
-                variable = clauseVarList[i];
+                int i = (statementStack[sp] - 1) * 4 + clauseStack[sp]; //this is causing mad issues
+                variable = clauseVarList[i]; //finds problem,stuck on problem!
+                
 
                 if (variable != "") {
                     f = 1;
-                    determine_member_concl_list();
+                    determine_member_concl_list(); // If variable is a member, sn != 0. If not a member, sn = 0.
 
-                    if (sn != 0)
-                        goto b520;
+                    if (sn != 0){//if we found a match, and its a conclusion, push it
+                        //goto b520;
+                        //f = 1;
+                        //determine_member_concl_list();
+                        //push_on_stack(); //decrements sp
+                        int i = (statementStack[sp] - 1) * 4 + clauseStack[sp];
+                        
+                        variable = clauseVarList[i]; //finds problem
 
-                    instantiate();
+                    }
+                    instantiate(); //where we get the user input
                     clauseStack[sp]++;
                 }
             } while (variable != "");
 
             sn = statementStack[sp];
-            int s = 0;
+            s = 0;
 
             // If-then statements
             switch (sn) { //modified this to represent our knowledge base
-                case 1: if (PROBLEM == "NO") s = 1; break;
+                case 1: if (PROBLEM == "NO" || PROBLEM == "YES") s = 1; break;
                 case 2: if (PROBLEM == "YES" && TRAFFIC == "YES") s = 1; break;
                 case 3: if (PROBLEM == "YES" && PATTERN == "YES") s = 1; break;
                 case 4: if (PROBLEM == "YES" && EMAILS == "YES") s = 1; break;
@@ -194,26 +204,29 @@ int main() {
             switch (sn) {//modified this to represent our knowledge base
                 case 1: PROBLEM = "NO"; cout << "there is no problem in the system" << endl; break;
                 case 2: PROBLEM = "YES"; cout << "there is a problem in the system" << endl; break;
-                case 3: TRAFFIC = "YES"; cout << "This is a DoS attack" << endl; break;
-                case 4: PATTERN = "YES"; cout << "This is a Man in the Middle attack" << endl; break;
-                case 5: DATABASE = "YES"; cout << "This is a SQL injection attack" << endl; break;
-                case 6: SCRIPTS = "YES"; cout << "This is a Cross site scripting attack" << endl; break;
-                case 7: INTERCEPT = "YES"; cout << "this is a packet sniffing attack" << endl; break;
-                case 8: RANSOM = "YES"; cout << "this is a ransomeware attack" << endl; break;
-                case 9: DNSREQUESTS = "YES"; cout << "this is a DNS spoofing attack" << endl; break;
-                case 10: VULNERABILITIES = "YES"; cout << "this is a zero day exploit" << endl; break;
+                case 3: ATTACK = "DOS"; cout << "This is a DoS attack" << endl; break;
+                case 4: ATTACK = "MITM"; cout << "This is a Man in the Middle attack" << endl; break;
+                case 5: ATTACK = "SQLI"; cout << "This is a SQL injection attack" << endl; break;
+                case 6: ATTACK = "XSS"; cout << "This is a Cross site scripting attack" << endl; break;
+                case 7: ATTACK = "PACKETSNIFF"; cout << "this is a packet sniffing attack" << endl; break;
+                case 8: ATTACK = "RANSOMWARE"; cout << "this is a ransomeware attack" << endl; break;
+                case 9: ATTACK = "DNSSPOOF"; cout << "this is a DNS spoofing attack" << endl; break;
+                case 10: ATTACK = "ZERODAY"; cout << "this is a zero day exploit" << endl; break;
             }
 
             sp++;
-            if (sp >= 11) //TODO: modify this number to work for our data
+            if (sp >= 11) {//TODO: modify this number to work for our data
                 cout << "*** SUCCESS" << endl;
+                return 0;
+            }
+
             else {
                 clauseStack[sp]++;
                 goto b545;
             }
         }
     }
-
+    cout << "we couldnt find a conclusion matching " << variable << endl;
     return 0;
 }
 
@@ -223,10 +236,13 @@ void determine_member_concl_list() {
     sn = 0;
     int i = f;
 
-    while (variable != conclusionList[i] && i < 8)
+    while (variable != conclusionList[i] && i < 8){
         i++;
+    }
 
-    if (variable == conclusionList[i]) sn = i; // A member
+    if (variable == conclusionList[i]){
+        sn = i; // A member
+    }
 }
 
 // Routine to push statement number (sn) and a clause number of 1 onto the conclusion stack
@@ -241,25 +257,25 @@ void push_on_stack() {
 // Instantiate indication (instantiatedList) is 0 if not, 1 if it is. Variable list (varList) contains the variable (variable).
 void instantiate() {
     int i = 1;
-
-    while (variable != varList[i] && i < 10) //TODO: modify loop iterations to work for our data
+    while ((variable != varList[i] && i < 11) || (variable == varList[i] && instantiatedList[i] >= 1)){  //changed this condition
         i++;
+    }
 
-    if (variable == varList[i] && instantiatedList[i] != 1) {
-        instantiatedList[i] = 1; // Mark instantiated
+    if (variable == varList[i] && instantiatedList[i] < 1) {
+        instantiatedList[i] = 1; // Mark instantiated 
 
         // Input statements for sample position knowledge base
         switch (i) { //modified this to get user inputs for each variable in the variable list from lists.txt
-            case 1: cout << "Is there a problem in the network? YES or NO"; getline(cin, PROBLEM); break;
-            case 2: cout << "Is there an increase in network traffic? YES or NO"; getline(cin, TRAFFIC); break;
-            case 3: cout << "Are there unusual patterns or network actovity? YES or NO"; getline(cin, PATTERN); break;
-            case 4: cout << "Are users receiving fraudulent emails or suspicious links? YES or NO"; getline(cin, EMAILS); break;
-            case 5: cout << "Has there been fraudulent database activity? YES or NO"; getline(cin, DATABASE); break;
-            case 6: cout << "Have malicious scripts been executing on webpages? YES or NO"; getline(cin, SCRIPTS); break;
-            case 7: cout << "Has network traffic been intercepted? YES or NO"; getline(cin, INTERCEPT); break;
-            case 8: cout << "Have ransom demands been found in files? YES or NO"; getline(cin, RANSOM); break;
-            case 9: cout << "Are there any manipulated DNS requests?"; getline(cin, DNSREQUESTS); break;
-            case 10: cout << "Is it possible there are unknown vulnerabilities?"; getline(cin, VULNERABILITIES); break;
+            case 1: cout << "Is there a problem in the network? YES or NO "; getline(cin, PROBLEM); break;
+            case 2: cout << "Is there an increase in network traffic? YES or NO "; getline(cin, TRAFFIC); break;
+            case 3: cout << "Are there unusual patterns or network actovity? YES or NO "; getline(cin, PATTERN); break;
+            case 4: cout << "Are users receiving fraudulent emails or suspicious links? YES or NO "; getline(cin, EMAILS); break;
+            case 5: cout << "Has there been fraudulent database activity? YES or NO "; getline(cin, DATABASE); break;
+            case 6: cout << "Have malicious scripts been executing on webpages? YES or NO "; getline(cin, SCRIPTS); break;
+            case 7: cout << "Has network traffic been intercepted? YES or NO "; getline(cin, INTERCEPT); break;
+            case 8: cout << "Have ransom demands been found in files? YES or NO "; getline(cin, RANSOM); break;
+            case 9: cout << "Are there any manipulated DNS requests? YES or NO "; getline(cin, DNSREQUESTS); break;
+            case 10: cout << "Is it possible there are unknown vulnerabilities? YES or NO "; getline(cin, VULNERABILITIES); break;
 
         }
     }
