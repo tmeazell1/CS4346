@@ -7,8 +7,20 @@ int flag;
 string conditionVar[10]; //condition variable
 string varList[10], clauseVarList[40]; // Variable list and clause variable list //TODO change these to appropriate lengths
 string c, vp, v; // Condition variables
-string PROBLEM, TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES; //TODO use the variable from FC lists.txt
+string PREVENTION, ATTACK, PROBLEM, TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES; //TODO use the variable from FC lists.txt
 string FIREWALL, HTTPS, TRAINING, SANITIZE, VPN, ANTIVIRUS, PATCH; // Conclusion variables TODO change these to conclusions from FC lists
+
+//TODO: write a brief description of how to implement each prevention, see example
+string prevention1 = "The best prevention for this attack is a firewall. Find a robust firewall that has rate limiting features.";
+string prevention2 = "https prevention";
+string prevention3 = "training prevention";
+string prevention4 = "sanitize prevention";
+string prevention5 = "csp prevention";
+string prevention6 = "vpn prevention";
+string prevention7 = "antivirus prevention";
+string prevention8 = "dnssec prevention";
+string prevention9 = "patch prevention";
+
 int instlt[10]; // Instantiated list (for instantiated variables)
 //TODO: remove unnecesarily global variables such as loop counters
 int f, i, j, k, s, fp, bp, gr, sn, cn; // Pointers and counters 
@@ -34,50 +46,49 @@ int main() {
 
     // Enter variables in the IF part
     //TODO change this to match variable list from FC lists.txt
-    varList[1] = "PROBLEM";
-    varList[2] = "TRAFFIC";
-    varList[3] = "PATTERN";
-    varList[4] = "EMAILS";
-    varList[5] = "DATABASE";
-    varList[6] = "SCRIPTS";
-    varList[7] = "INTERCEPT";
-    varList[8] = "RANSOM";
-    varList[9] = "DNSREQUESTS";
-    varList[10] = "VULNERABILITIES";
+    varList[1] = "ATTACK";
+    // varList[2] = "TRAFFIC";
+    // varList[3] = "PATTERN";
+    // varList[4] = "EMAILS";
+    // varList[5] = "DATABASE";
+    // varList[6] = "SCRIPTS";
+    // varList[7] = "INTERCEPT";
+    // varList[8] = "RANSOM";
+    // varList[9] = "DNSREQUESTS";
+    // varList[10] = "VULNERABILITIES";
 
     cout << "*** VARIABLE LIST ***" << endl; //we only have one variable. It seems like we need to get the variable from the BC function?
-    for (i = 1; i < 11; i++)
+    for (i = 1; i < 2; i++)
         cout << "ENTER VARIABLE " << i << " " << varList[i] << endl;
 
     cout << "HIT RETURN TO CONTINUE";
     getchar();
 
     // Enter variables as they appear in the IF clauses
-    //TODO make this match the clause variable list from FC lists.txt
-    clauseVarList[1] = "PROBLEM";
-    clauseVarList[5] = "PROBLEM";
-    clauseVarList[6] = "ATTACK";
-    clauseVarList[9] = "PROBLEM";
-    clauseVarList[10] = "ATTACK";
-    clauseVarList[13] = "PROBELM";
-    clauseVarList[14] = "ATTACK";
-    clauseVarList[17] = "PROBLEM";
-    clauseVarList[18] = "ATTACK";
-    clauseVarList[21] = "PROBLEM";
-    clauseVarList[22] = "ATTACK";
-    clauseVarList[25] = "PROBLEM";
-    clauseVarList[26] = "ATTACK";
-    clauseVarList[29] = "PROBLEM";
-    clauseVarList[30] = "ATTACK";
-    clauseVarList[33] = "PROBLEM";
+    //made this match the clause variable list from FC lists.txt
+    clauseVarList[1] = "ATTACK";
+    clauseVarList[2] = "PREVENTION";
+    clauseVarList[5] = "ATTACK";
+    clauseVarList[6] = "PREVENTION";
+    clauseVarList[9] = "ATTACK";
+    clauseVarList[10] = "PREVENTION";
+    clauseVarList[13] = "ATTACK";
+    clauseVarList[14] = "PREVENTION";
+    clauseVarList[17] = "ATTACK";
+    clauseVarList[18] = "PREVENTION";
+    clauseVarList[21] = "ATTACK";
+    clauseVarList[22] = "PREVENTION";
+    clauseVarList[25] = "ATTACK";
+    clauseVarList[26] = "PREVENTION";
+    clauseVarList[29] = "ATTACK";
+    clauseVarList[30] = "PREVENTION";
     clauseVarList[34] = "ATTACK";
-    clauseVarList[37] = "PROBLEM";
-    clauseVarList[38] = "ATTACK";
+    clauseVarList[35] = "PREVENTION";
 
     cout << "*** CLAUSE-VARIABLE LIST ***" << endl;
-    for (i = 1; i < 9; i++) {
+    for (i = 1; i < 10; i++) {
         cout << "** CLAUSE " << i << endl;
-        for (j = 1; j < 5; j++) {
+        for (j = 1; j < 3; j++) {
             k = 4 * (i - 1) + j;
             cout << "VARIABLE " << j << " " << clauseVarList[k] << endl;
         }
@@ -105,10 +116,11 @@ int main() {
     f = 1; //f is an iterator
 
     while (sn != 0) {
-        search(); //b496 //search() searches the clause variable list for our condition ATTACK
+        search(); //b496 //search() searches the clause variable list for our condition PREVENTION
+        //sets sn =0 if no match found, sn !=0 otherwise
 
         cn = 1; // start at the first clause
-        if (sn != 0) {
+        if (sn != 0) { //if we found a match between conditionvar[fp] and clausevarlist
             i = 4 * (sn - 1) + cn;
 
             while (!clauseVarList[i].empty()) { // are there any more clauses for this statement?
@@ -120,12 +132,15 @@ int main() {
             s = 0;
 
             switch (sn) { //TODO change this
-                case 1: if (interest == "FALL") s = 1; break;
-                case 2: if (interest == "RISE") s = 1; break;
-                case 3: if (dollar == "FALL") s = 1; break;
-                case 4: if (dollar == "RISE") s = 1; break;
-                case 5: if (fedint == "FALL" && fedmon == "ADD") s = 1; break;
-                case 6: if (qu == "YES" && gr >= 3.5) s = 1; break;
+                case 1: if (ATTACK == "DOS") s = 1; break;
+                case 2: if (ATTACK == "MITM") s = 1; break;
+                case 3: if (ATTACK == "PHISHING") s = 1; break;
+                case 4: if (ATTACK == "SQLI") s = 1; break;
+                case 5: if (ATTACK == "XSS") s = 1; break;
+                case 6: if (ATTACK == "PACKETSNIFF") s = 1; break;
+                case 7: if (ATTACK == "RANSOMEWARE") s = 1; break;
+                case 8: if (ATTACK == "DNSSPOOF") s = 1; break;
+                case 9: if (ATTACK == "ZERODAY") s = 1; break;
             }
             /* see if the THEN part should be inovked, i.e., s=1 */
             if (s != 1) {
@@ -134,12 +149,15 @@ int main() {
             }
 
             switch (sn) {
-                case 1: stock = "RISE"; cout << "ST=RISE" << endl; v = "ST"; instantiate(); break;
-                case 2: stock = "FALL"; cout << "ST=FALL" << endl; v = "ST"; instantiate(); break;
-                case 3: interest = "RISE"; cout << "IN=RISE" << endl; v = "IN"; instantiate(); break;
-                case 4: interest = "FALL"; cout << "IN=FALL" << endl; v = "IN"; instantiate(); break;
-                case 5: interest = "FALL"; cout << "IN=FALL" << endl; v = "IN"; instantiate(); break;
-                case 6: po = "YES"; cout << "PO=YES" << endl; break;
+                case 1: PREVENTION = "FIREWALL"; cout << prevention1 << endl; return 0;
+                case 2: PREVENTION = "HTTPS"; cout << prevention2 << endl; return 0;
+                case 3: PREVENTION = "TRAINING"; cout << prevention3 << endl; return 0;
+                case 4: PREVENTION = "SANITIZE"; cout << prevention4 << endl; return 0;
+                case 5: PREVENTION = "CSP"; cout << prevention5 << endl; return 0;
+                case 6: PREVENTION = "VPN"; cout << prevention6 << endl; return 0;
+                case 7: PREVENTION = "ANTIVIRUS"; cout << prevention7 << endl; return 0;
+                case 8: PREVENTION = "DNSSEC"; cout << prevention8 << endl; return 0;
+                case 9: PREVENTION = "PATCH"; cout << prevention9 << endl; return 0;
             }
 
             f = sn + 1; 
@@ -160,7 +178,7 @@ int main() {
         //no more conclusion variables on queue
         break;
     }
-
+    cout << "We couldn't find a prevention" << endl;
     return 0;
 }
 
@@ -176,15 +194,13 @@ void check_instantiation() {
     if (instlt[i] != 1) {
         instlt[i] = 1;
 
-        switch (i) { //TODO change this to ask what type of attack was identified
-            case 1: cout << "RISE OR FALL FOR DO? "; getline(cin, dollar); break;
-            case 2: cout << "RISE OR FALL FOR FT? "; getline(cin, fedint); break;
-            case 3: cout << "ADD OR SUBTRACT FOR FM? "; getline(cin, fedmon); break;
-            case 4: cout << "RISE OR FALL FOR IN? "; getline(cin, interest); break;
-            case 5: cout << "RISE OR FALL FOR ST? "; getline(cin, stock); break;
+        switch (i) { //TODO change this to get the attack directly from the backward chaining results
+            case 1: cout << "What type of attack are you experiencing?"; getline(cin, ATTACK); break;
+            case 2: cout << "What type of attack are you experiencing?"; getline(cin, ATTACK); break;
+        }
         }
     }
-}
+
 
 // Function to search the clause variable list for a variable (clauseVarList)
 void search() {
@@ -200,8 +216,9 @@ void search() {
             k = (sn - 1) * 4 + cn;
         }
 
-        if (clauseVarList[k] == conditionVar[fp]) //if we find the condition variable
+        if (clauseVarList[k] == conditionVar[fp]){ //if we find the condition variable
             flag = 1;
+        }
 
         if (flag == 0)
             sn++;

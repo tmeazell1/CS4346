@@ -205,13 +205,14 @@ int main() {
                 case 1: PROBLEM = "NO"; cout << "there is no problem in the system" << endl; break;
                 case 2: PROBLEM = "YES"; cout << "there is a problem in the system" << endl; break;
                 case 3: ATTACK = "DOS"; cout << "This is a DoS attack" << endl; break;
-                case 4: ATTACK = "MITM"; cout << "This is a Man in the Middle attack" << endl; break;
-                case 5: ATTACK = "SQLI"; cout << "This is a SQL injection attack" << endl; break;
-                case 6: ATTACK = "XSS"; cout << "This is a Cross site scripting attack" << endl; break;
-                case 7: ATTACK = "PACKETSNIFF"; cout << "this is a packet sniffing attack" << endl; break;
-                case 8: ATTACK = "RANSOMWARE"; cout << "this is a ransomeware attack" << endl; break;
-                case 9: ATTACK = "DNSSPOOF"; cout << "this is a DNS spoofing attack" << endl; break;
-                case 10: ATTACK = "ZERODAY"; cout << "this is a zero day exploit" << endl; break;
+                case 4: ATTACK = "PHISHING"; cout << "This is a phishing attack" << endl; break;
+                case 5: ATTACK = "MITM"; cout << "This is a Man in the Middle attack" << endl; break;
+                case 6: ATTACK = "SQLI"; cout << "This is a SQL injection attack" << endl; break;
+                case 7: ATTACK = "XSS"; cout << "This is a Cross site scripting attack" << endl; break;
+                case 8: ATTACK = "PACKETSNIFF"; cout << "this is a packet sniffing attack" << endl; break;
+                case 9: ATTACK = "RANSOMWARE"; cout << "this is a ransomeware attack" << endl; break;
+                case 10: ATTACK = "DNSSPOOF"; cout << "this is a DNS spoofing attack" << endl; break;
+                case 11: ATTACK = "ZERODAY"; cout << "this is a zero day exploit" << endl; break;
             }
 
             sp++;
