@@ -8,11 +8,11 @@ int main() {
     // Backward chaining
     cout << "Backward chaining" << endl;
     BC_main();
-    string m_ATTACK = getAttack();
+    ATTACK = getAttack();
 
     // Forward chaining
     cout << "Forward chaining" << endl;
-    FC_main(m_ATTACK);
+    FC_main(ATTACK);
 
     cout << "Analysis complete, goodbye!" << endl;
 

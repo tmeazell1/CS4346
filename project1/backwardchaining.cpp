@@ -1,11 +1,40 @@
 #include <iostream>
 #include <string>
-#include "variables.h"
 
 using namespace std;
 
 
+//TODO: change # of elements in each array to be appropriate for our data
+const int CONCLUSION_LIST_SIZE = 10;
+const int VAR_LIST_SIZE = 10;
+const int CLAUSE_VAR_LIST_SIZE = 40;
 
+string conclusionList[CONCLUSION_LIST_SIZE];
+string bc_varList[VAR_LIST_SIZE];
+string bc_clauseVarList[CLAUSE_VAR_LIST_SIZE];
+
+string variable;
+//changed these variables to match variable list in lists.txt
+string TRAFFIC, PATTERN, EMAILS, DATABASE, SCRIPTS, INTERCEPT, RANSOM, DNSREQUESTS, VULNERABILITIES; //im not sure if these are even necessary 
+string PROBLEM, ATTACK;
+string buff;
+
+// Instantiated list
+int instantiatedList[11];
+
+// Statement stack
+int statementStack[11];
+
+// Clause stack
+int clauseStack[11];
+
+int bc_sn, sp, bc_s, bc_i;
+int bc_f =1;
+
+// Function prototypes
+void determine_member_concl_list();
+void push_on_stack();
+void BC_instantiate();
 
 int BC_main() {
     // Initialization section

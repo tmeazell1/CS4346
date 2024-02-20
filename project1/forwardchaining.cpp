@@ -1,10 +1,34 @@
 #include <iostream>
 #include <string>
-#include "variables.h"
 
 using namespace std;
 
+int flag;
+string conditionVar[10]; //condition variable
+string varList[10], clauseVarList[40]; // Variable list and clause variable list //TODO change these to appropriate lengths
+string c, vp, v; // Condition variables
+string PREVENTION, FC_ATTACK;
+string FIREWALL, HTTPS, TRAINING, SANITIZE, VPN, ANTIVIRUS, PATCH; // Conclusion variables TODO change these to conclusions from FC lists
 
+//TODO: write a brief description of how to implement each prevention, see example
+string prevention1 = "The best prevention for this attack is a firewall. Find a robust firewall that has rate limiting features.";
+string prevention2 = "https prevention";
+string prevention3 = "training prevention";
+string prevention4 = "sanitize prevention";
+string prevention5 = "csp prevention";
+string prevention6 = "vpn prevention";
+string prevention7 = "antivirus prevention";
+string prevention8 = "dnssec prevention";
+string prevention9 = "patch prevention";
+
+int instlt[10]; // Instantiated list (for instantiated variables)
+//TODO: remove unnecesarily global variables such as loop counters
+int f, i, j, k, s, fp, bp, gr, sn, cn; // Pointers and counters 
+
+// Function prototypes
+void search();
+void check_instantiation();
+void instantiate();
 
 int FC_main(string a) {
     // Initialization section
