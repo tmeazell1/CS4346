@@ -50,14 +50,14 @@ inline string FIREWALL, HTTPS, TRAINING, SANITIZE, VPN, ANTIVIRUS, PATCH; // Con
 
 //TODO: write a brief description of how to implement each prevention, see example
 inline string prevention1 = "The best prevention for this attack is a firewall. Find a robust firewall that has rate limiting features.";
-inline string prevention2 = "https prevention";
-inline string prevention3 = "training prevention";
-inline string prevention4 = "sanitize prevention";
-inline string prevention5 = "csp prevention";
-inline string prevention6 = "vpn prevention";
-inline string prevention7 = "antivirus prevention";
-inline string prevention8 = "dnssec prevention";
-inline string prevention9 = "patch prevention";
+inline string prevention2 = "The best prevention for this attack is to implement strong SSL/TLS configurations and regular certificate management.";
+inline string prevention3 = "The best prevention for this attack involves training users on cybersecurity best practices";
+inline string prevention4 = "The best prevention for this attack is implementing least privilege access controls to mitigate SQL injection vulnerabilities.";
+inline string prevention5 = "The best prevention for this attack is enforcing Content Security Policy (CSP) headers to mitigate cross-site scripting vulnerabilities.";
+inline string prevention6 = "The best prevention for this attack is to use a Virtual Private Network (VPN) to encrypt all network traffic.";
+inline string prevention7 = "The best prevention for this attack is regularly updating and maintaining robust antivirus software.";
+inline string prevention8 = "The best prevention for this attack is implementing DNSSEC (Domain Name System Security Extensions) to authenticate DNS responses and validate DNS data integrity.";
+inline string prevention9 = "The best prevention for this attack is proactive security measures such as regular software patching and network segmentation.";
 
 inline int instlt[10]; // Instantiated list (for instantiated variables)
 //TODO: remove unnecesarily global variables such as loop counters
