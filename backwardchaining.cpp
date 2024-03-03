@@ -67,6 +67,7 @@ int BC_main() {
 
     //Enter clause variables from lists.txt
     bc_clauseVarList[1] = "PROBLEM";
+    bc_clauseVarList[2] = "ATTACK";
     bc_clauseVarList[5] = "PROBLEM";
     bc_clauseVarList[6] = "ATTACK";
     bc_clauseVarList[9] = "PROBLEM";
@@ -112,7 +113,7 @@ int BC_main() {
     // First statement starts search
     b520:
     bc_f = 1;
-    determine_member_concl_list(); // If variable is a member, sn != 0. If not a member, sn = 0.
+    determine_member_concl_list(); // If variable (Attack) is a member, sn != 0. If not a member, sn = 0.
 
     if (bc_sn != 0) {
         do {
@@ -121,13 +122,12 @@ int BC_main() {
 
             do {/* calculate clause location in clause-variable list */
             b545:
-                int i = (statementStack[sp] - 1) * 4 + clauseStack[sp]; //this is causing mad issues
-                variable = bc_clauseVarList[i]; //finds problem,stuck on problem!
-                
+                int i = (statementStack[sp] - 1) * 4 + clauseStack[sp]; 
+                variable = bc_clauseVarList[i]; //finds problem
 
                 if (variable != "") {
                     bc_f = 1;
-                    determine_member_concl_list(); // If variable is a member, sn != 0. If not a member, sn = 0.
+                    determine_member_concl_list(); // If problem is a member, sn != 0. If not a member, sn = 0.
 
                     if (bc_sn != 0){//if we found a match, and its a conclusion, push it
                         //goto b520;
@@ -149,7 +149,7 @@ int BC_main() {
 
             // If-then statements
             switch (bc_sn) { //modified this to represent our knowledge base
-                case 1: if (PROBLEM == "NO" || PROBLEM == "YES") bc_s = 1; break;
+                case 1: if (PROBLEM == "NO") bc_s = 1; break;
                 case 2: if (PROBLEM == "YES" && TRAFFIC == "YES") bc_s = 1; break;
                 case 3: if (PROBLEM == "YES" && PATTERN == "YES") bc_s = 1; break;
                 case 4: if (PROBLEM == "YES" && EMAILS == "YES") bc_s = 1; break;
@@ -173,17 +173,16 @@ int BC_main() {
 
         if (bc_sn != 0) {
             switch (bc_sn) {//modified this to represent our knowledge base
-                case 1: PROBLEM = "NO"; cout << "there is no problem in the system" << endl; break;
-                case 2: PROBLEM = "YES"; cout << "there is a problem in the system" << endl; break;
-                case 3: ATTACK = "DOS"; cout << "This is a DoS attack" << endl; break;
+                case 1: ATTACK = "NO"; cout << "there is no problem in the system" << endl; break;
+                case 2: ATTACK = "DOS"; cout << "This is a DoS attack" << endl; break;
                 case 4: ATTACK = "PHISHING"; cout << "This is a phishing attack" << endl; break;
-                case 5: ATTACK = "MITM"; cout << "This is a Man in the Middle attack" << endl; break;
-                case 6: ATTACK = "SQLI"; cout << "This is a SQL injection attack" << endl; break;
-                case 7: ATTACK = "XSS"; cout << "This is a Cross site scripting attack" << endl; break;
-                case 8: ATTACK = "PACKETSNIFF"; cout << "this is a packet sniffing attack" << endl; break;
-                case 9: ATTACK = "RANSOMWARE"; cout << "this is a ransomeware attack" << endl; break;
-                case 10: ATTACK = "DNSSPOOF"; cout << "this is a DNS spoofing attack" << endl; break;
-                case 11: ATTACK = "ZERODAY"; cout << "this is a zero day exploit" << endl; break;
+                case 3: ATTACK = "MITM"; cout << "This is a Man in the Middle attack" << endl; break;
+                case 5: ATTACK = "SQLI"; cout << "This is a SQL injection attack" << endl; break;
+                case 6: ATTACK = "XSS"; cout << "This is a Cross site scripting attack" << endl; break;
+                case 7: ATTACK = "PACKETSNIFF"; cout << "this is a packet sniffing attack" << endl; break;
+                case 8: ATTACK = "RANSOMWARE"; cout << "this is a ransomeware attack" << endl; break;
+                case 9: ATTACK = "DNSSPOOF"; cout << "this is a DNS spoofing attack" << endl; break;
+                case 10: ATTACK = "ZERODAY"; cout << "this is a zero day exploit" << endl; break;
             }
 
             sp++;

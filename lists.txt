@@ -36,7 +36,7 @@ knowledge base
 
 clause variable list
 1 PROBLEM
-2 
+2 ATTACK
 3
 4
 5 PROBLEM
